@@ -1,11 +1,14 @@
 package com.teamtrack.location.rest;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.teamtrack.dto.Location;
+import com.teamtrack.dto.Locations;
 
 @Path("/location")
 public class LocationController {
@@ -22,9 +25,21 @@ public class LocationController {
 	public Location getTrackInJSON() {
 
 		Location location = new Location();
-		location.setTitle("Enter Sandman");
-		location.setSinger("Metallica");
-
+		List<Locations> locations = location.getLocations();
+		
+		Locations loc = new Locations();
+		loc.setUserName("sorabh");
+		loc.setDistance("12");
+	
+		Locations loc1 = new Locations();
+		loc1.setUserName("parveen");
+		loc1.setDistance("15");
+		
+		locations.add(loc);
+		locations.add(loc1);
+		
+		location.setLocations(locations);
+		
 		return location;
 
 	}

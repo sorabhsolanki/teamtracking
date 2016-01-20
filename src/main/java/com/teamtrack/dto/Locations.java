@@ -21,4 +21,6 @@ public class Locations {
 		this.distance = distance;
 	}
 	
+	
+	
 }

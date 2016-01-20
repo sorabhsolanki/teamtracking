@@ -1,17 +1,20 @@
 package com.teamtrack.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Location {
 	
-	private Locations locations;
+	private List<Locations> locations = new ArrayList<>();
 
-	public Locations getLocations() {
+	public List<Locations> getLocations() {
 		return locations;
 	}
 
-	public void setLocations(Locations locations) {
+	public void setLocations(List<Locations> locations) {
 		this.locations = locations;
 	}
 
