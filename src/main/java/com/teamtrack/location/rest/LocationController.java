@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.teamtrack.cache.CustomCache;
 import com.teamtrack.dto.Location;
 import com.teamtrack.dto.Locations;
 
@@ -24,6 +25,12 @@ public class LocationController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Location getTrackInJSON() {
 
+		
+		CustomCache customCache = CustomCache.getCacheInstance();
+		customCache.getCache().put("sorabh", "solanki");
+		String name = (String) customCache.getCache().get("sorabh");
+		
+		
 		Location location = new Location();
 		List<Locations> locations = location.getLocations();
 		
