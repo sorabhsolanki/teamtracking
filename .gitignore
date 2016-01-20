@@ -14,10 +14,10 @@ hs_err_pid*
 
 
 # Unneccessary folders and its Files #
-bin/
-build/
-.idea/
-.gradle/
-.idea/
-.settingss/
+bin/*
+build/*
+.idea/*
+.gradle/*
+.idea/*
+.settings/*
 .classpath
