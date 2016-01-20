@@ -18,4 +18,9 @@ public class Location {
 		this.locations = locations;
 	}
 
+	@Override
+	public String toString() {
+		return "Location [locations=" + locations + "]";
+	}
+
 }
