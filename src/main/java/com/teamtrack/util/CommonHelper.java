@@ -54,11 +54,13 @@ public class CommonHelper {
 		
 		//loop to update distance related above finding
 		for(Locations loc : locations){
+			
 			if(!loc.getUserName().equals(currentUser)){
 				double distance = distance(Double.parseDouble(latitude), Double.parseDouble(loc.getLatitude()), Double.parseDouble(longitude), Double.parseDouble(loc.getLongitude()));
 				loc.setDistance(distance);
 			}
 		}
+		
 		return locations;
 	}
 }

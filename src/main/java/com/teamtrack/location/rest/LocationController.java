@@ -44,6 +44,7 @@ public class LocationController {
 				l1.setLatitude(lattitude);
 				l1.setLongitude(longitude);
 				l1.setDistance(0);
+				l1.setAvialbale(true);
 				locations.add(l1);
 				
 				loc.setLocations(locations);
@@ -75,6 +76,7 @@ public class LocationController {
 		l1.setLatitude(lattitude);
 		l1.setLongitude(longitude);
 		l1.setDistance(0);
+		l1.setAvialbale(true);
 		locations.add(l1);
 		location.setLocations(locations);
 

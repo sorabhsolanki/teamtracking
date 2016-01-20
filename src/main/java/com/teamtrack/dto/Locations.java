@@ -9,6 +9,7 @@ public class Locations {
 	private double distance;
 	private String latitude;
 	private String longitude;
+	private boolean avialbale;
 
 	public String getUserName() {
 		return userName;
@@ -41,11 +42,18 @@ public class Locations {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
+	
+	public boolean isAvialbale() {
+		return avialbale;
+	}
+
+	public void setAvialbale(boolean avialbale) {
+		this.avialbale = avialbale;
+	}
 
 	@Override
 	public String toString() {
 		return "Locations [userName=" + userName + ", distance=" + distance
 				+ ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
-
 }
