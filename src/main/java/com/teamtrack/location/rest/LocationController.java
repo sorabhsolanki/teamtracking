@@ -27,9 +27,9 @@ public class LocationController {
 	}
 
 	@GET
-	@Path("/trackLocationPushResponse/{lat}/{lon}/{userName}/{roomNumber}")
+	@Path("/pushaccepted/{lat}/{lon}/{userName}/{roomNumber}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Location pushResponse(@PathParam("lat") String lattitude,
+	public Location pushAccepted(@PathParam("lat") String lattitude,
 			@PathParam("lon") String longitude,
 			@PathParam("userName") String userName,
 			@PathParam("roomNumber") int roomNumber) {
@@ -43,6 +43,7 @@ public class LocationController {
 				l1.setUserName(userName);
 				l1.setLatitude(lattitude);
 				l1.setLongitude(longitude);
+				l1.setDistance(0);
 				locations.add(l1);
 				
 				loc.setLocations(locations);
@@ -56,7 +57,7 @@ public class LocationController {
 	}
 
 	@GET
-	@Path("/trackLocation/{lat}/{lon}/{userName}")
+	@Path("/tracklocation/{lat}/{lon}/{userName}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public RestResponse track(@PathParam("lat") String lattitude,
 			@PathParam("lon") String longitude,
@@ -73,6 +74,7 @@ public class LocationController {
 		l1.setUserName(userName);
 		l1.setLatitude(lattitude);
 		l1.setLongitude(longitude);
+		l1.setDistance(0);
 		locations.add(l1);
 		location.setLocations(locations);
 
@@ -85,24 +87,24 @@ public class LocationController {
 		RestResponse resp = new RestResponse();
 		resp.setErrorCode(200);
 		resp.setRoomNumber(roomNumber);
-		System.out.println(location + "\nhashcode: " + location.hashCode());
+		System.out.println(location);
 
 		return resp;
 	}
 
 	@GET
-	@Path("/returnLocationById/{roomNumber}/{userName}")
+	@Path("/checklocation/{roomNumber}/{userName}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Location checkLocation(@PathParam("roomNumber") int roomNumber,
-			@PathParam("userName") String userName) {
+	public Location checkLocation(@PathParam("roomNumber") int roomNumber, @PathParam("userName") String userName) {
 		CustomCache customCache = CustomCache.getCacheInstance();
-		Location loc = (Location) customCache.getCache().get(roomNumber);
-		if (loc != null) {
-			return loc;
+		Location location = (Location) customCache.getCache().get(roomNumber);
+		if (location != null) {
+			// calculate distance relative to current user. 
+			List<Locations> locations = location.getLocations();
+			locations = CommonHelper.calculateDistance(locations, userName);
+			return location;
 		}
-		System.out.println(loc);
 		return null;
-
 	}
 
 }

@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Locations {
 
 	private String userName;
-	private String distance;
+	private double distance;
 	private String latitude;
 	private String longitude;
 
@@ -18,11 +18,11 @@ public class Locations {
 		this.userName = userName;
 	}
 
-	public String getDistance() {
+	public double getDistance() {
 		return distance;
 	}
 
-	public void setDistance(String distance) {
+	public void setDistance(double distance) {
 		this.distance = distance;
 	}
 
