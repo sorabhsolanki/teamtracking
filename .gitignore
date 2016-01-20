@@ -14,8 +14,8 @@ hs_err_pid*
 
 
 # Unneccessary folders and its Files #
-bin/*
-build/*
+#bin/*
+#build/*
 .idea/*
 .gradle/*
 .idea/*
