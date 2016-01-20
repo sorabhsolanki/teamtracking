@@ -1,5 +1,6 @@
 package com.teamtrack.location.rest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class LocationController {
 				l1.setLatitude(lattitude);
 				l1.setLongitude(longitude);
 				l1.setDistance(0);
-				l1.setAvialbale(true);
+				l1.setAvailable(true);
 				locations.add(l1);
 				
 				loc.setLocations(locations);
@@ -62,9 +63,13 @@ public class LocationController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public RestResponse track(@PathParam("lat") String lattitude,
 			@PathParam("lon") String longitude,
-			@PathParam("userName") String userName) {
+			@PathParam("userName") String userName) throws IOException {
 
 		// notify to all other user-- push notification
+		String message = "Please accept to give your location for tracking!!!" ;
+		String title = "TrackLocation";
+		CommonHelper helper = new CommonHelper();
+		helper.sendPushNotification(userName, title, message);
 
 		// save current user
 		Location location = new Location();
@@ -76,7 +81,7 @@ public class LocationController {
 		l1.setLatitude(lattitude);
 		l1.setLongitude(longitude);
 		l1.setDistance(0);
-		l1.setAvialbale(true);
+		l1.setAvailable(true);
 		locations.add(l1);
 		location.setLocations(locations);
 

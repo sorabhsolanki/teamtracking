@@ -1,9 +1,15 @@
 package com.teamtrack.util;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 import com.teamtrack.dto.Locations;
+import com.teamtrack.dto.PushNotificationDetails;
+import com.teamtrack.push.PushNotifications;
 
 public class CommonHelper {
 
@@ -62,5 +68,41 @@ public class CommonHelper {
 		}
 		
 		return locations;
+	}
+	
+	public void sendPushNotification(String userName, String alertTitle, String message) throws IOException{
+		PushNotificationDetails pushdetDetails = new PushNotificationDetails();
+		pushdetDetails.setAlertTitle(alertTitle);
+		pushdetDetails.setMessage(message);
+		CommonHelper helper = new CommonHelper();
+		String propLocation = "config.properties";
+		String certificateLocation = "TT_Server_Push.p12";
+		String token = helper.getPropValues(propLocation, userName.toLowerCase());
+		pushdetDetails.setToken(token);
+		pushdetDetails.setCertificatePath(certificateLocation);
+		
+		PushNotifications notif = new PushNotifications();
+		notif.sendPush(pushdetDetails);
+	}
+	
+	public String getPropValues(String propertyFileName, String propertyName) throws IOException {
+		String result = "";
+		InputStream inputStream = null;
+		try {
+			Properties prop = new Properties();
+			inputStream = getClass().getClassLoader().getResourceAsStream(propertyFileName);
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '"+ propertyFileName + "' not found in the classpath");
+			}
+			result = prop.getProperty(propertyName);
+			System.out.println(result);
+		} catch (Exception e) {
+			System.out.println("Exception: " + e);
+		} finally {
+			inputStream.close();
+		}
+		return result;
 	}
 }
