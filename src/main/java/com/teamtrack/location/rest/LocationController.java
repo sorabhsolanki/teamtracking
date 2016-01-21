@@ -30,8 +30,8 @@ public class LocationController {
 	@GET
 	@Path("/pushaccepted/{lat}/{lon}/{userName}/{roomNumber}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Location pushAccepted(@PathParam("lat") String lattitude,
-			@PathParam("lon") String longitude,
+	public Location pushAccepted(@PathParam("lat") double lattitude,
+			@PathParam("lon") double longitude,
 			@PathParam("userName") String userName,
 			@PathParam("roomNumber") int roomNumber) {
 		
@@ -61,8 +61,8 @@ public class LocationController {
 	@GET
 	@Path("/tracklocation/{lat}/{lon}/{userName}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public RestResponse track(@PathParam("lat") String lattitude,
-			@PathParam("lon") String longitude,
+	public RestResponse track(@PathParam("lat") double lattitude,
+			@PathParam("lon") double longitude,
 			@PathParam("userName") String userName) throws IOException {
 
 		// notify to all other user-- push notification

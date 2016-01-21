@@ -47,8 +47,8 @@ public class CommonHelper {
 	
 	
 	public static List<Locations> calculateDistance(List<Locations> locations, String currentUser){
-		String longitude =null;
-		String latitude = null;
+		double longitude = 0 ;
+		double latitude = 0 ;
 		// loop to find out the latitude and longitude 
 		for(Locations loc : locations){
 			if(loc.getUserName().equals(currentUser)){
@@ -60,9 +60,8 @@ public class CommonHelper {
 		
 		//loop to update distance related above finding
 		for(Locations loc : locations){
-			
 			if(!loc.getUserName().equals(currentUser)){
-				double distance = distance(Double.parseDouble(latitude), Double.parseDouble(loc.getLatitude()), Double.parseDouble(longitude), Double.parseDouble(loc.getLongitude()));
+				double distance = distance(latitude, loc.getLatitude(), longitude, loc.getLongitude());
 				loc.setDistance(distance);
 			}
 		}

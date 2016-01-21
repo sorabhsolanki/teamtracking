@@ -27,6 +27,7 @@ dependencies {
     compile 'com.sun.jersey:jersey-json:1.8'
     compile 'com.sun.jersey:jersey-server:1.8'
     compile 'org.infinispan:infinispan-core:6.0.2.Final'
+    compile 'com.notnoop.apns:apns:1.0.0.Beta6'
 	//include in compile only, exclude in the war
 	providedCompile 'javax.servlet:servlet-api:2.5'
 }
