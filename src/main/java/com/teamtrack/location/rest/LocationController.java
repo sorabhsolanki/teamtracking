@@ -2,6 +2,7 @@ package com.teamtrack.location.rest;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -20,6 +21,7 @@ import com.teamtrack.util.CommonHelper;
 public class LocationController {
 
 	private Object lock = new Object();
+	private List<String> userList = new ArrayList<>();
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -66,11 +68,16 @@ public class LocationController {
 			@PathParam("userName") String userName) throws IOException {
 
 		// notify to all other user-- push notification
-		String message = "Please accept to give your location for tracking!!!" ;
-		String title = "TrackLocation";
-		CommonHelper helper = new CommonHelper();
-		helper.sendPushNotification(userName, title, message);
-
+		List<String> list = getUserList();
+		for(String user: list){
+			if(!user.equalsIgnoreCase(userName)){
+				String message = "Please accept to give your location for tracking!!!" ;
+				String title = "Track location initiated by " + userName;
+				CommonHelper helper = new CommonHelper();
+				helper.sendPushNotification(userName, title, message);
+			}
+		}
+		
 		// save current user
 		Location location = new Location();
 
@@ -112,6 +119,17 @@ public class LocationController {
 			return location;
 		}
 		return null;
+	}
+
+	public List<String> getUserList() throws IOException {
+		CommonHelper helper = new CommonHelper();
+		String users = helper.getPropValues("config.properties", "users");
+		userList = Arrays.asList(users.split(":"));
+		return userList;
+	}
+
+	public void setUserList(List<String> userList) {
+		this.userList = userList;
 	}
 
 }
