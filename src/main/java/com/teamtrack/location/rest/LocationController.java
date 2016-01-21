@@ -122,7 +122,7 @@ public class LocationController {
 	@GET
 	@Path("/broadcast/{message}/{userName}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public void broadcast(@PathParam("message") String message,
+	public String broadcast(@PathParam("message") String message,
 			@PathParam("userName") String userName) throws IOException {
 		// broadcast to all other user-- push notification
 		List<String> list = getUserList();
@@ -133,6 +133,7 @@ public class LocationController {
 				helper.sendPushNotification(user, title, userName + " says : " + message, 0);
 			}
 		}
+		return "";
 	}
 
 	public List<String> getUserList() throws IOException {
