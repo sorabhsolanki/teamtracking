@@ -21,7 +21,6 @@ import com.teamtrack.util.CommonHelper;
 public class LocationController {
 
 	private Object lock = new Object();
-	private List<String> userList = new ArrayList<>();
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -74,7 +73,7 @@ public class LocationController {
 				String message = "Please accept to give your location for tracking!!!" ;
 				String title = "Track location initiated by " + userName;
 				CommonHelper helper = new CommonHelper();
-				helper.sendPushNotification(userName, title, message);
+				helper.sendPushNotification(user, title, message);
 			}
 		}
 		
@@ -120,16 +119,29 @@ public class LocationController {
 		}
 		return null;
 	}
+	
+	@GET
+	@Path("/broadcast/{message}/{userName}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void broadcast(@PathParam("message") String message,
+			@PathParam("userName") String userName) throws IOException {
+		// broadcast to all other user-- push notification
+		List<String> list = getUserList();
+		for(String user: list){
+			if(!user.equalsIgnoreCase(userName)){
+				String title = "Broadcast message from " + userName;
+				CommonHelper helper = new CommonHelper();
+				helper.sendPushNotification(user, title, userName + " says : " + message);
+			}
+		}
+	}
 
 	public List<String> getUserList() throws IOException {
 		CommonHelper helper = new CommonHelper();
 		String users = helper.getPropValues("config.properties", "users");
-		userList = Arrays.asList(users.split(":"));
-		return userList;
+		return Arrays.asList(users.split(":"));
 	}
-
-	public void setUserList(List<String> userList) {
-		this.userList = userList;
-	}
+	
+	
 
 }

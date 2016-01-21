@@ -77,6 +77,8 @@ public class CommonHelper {
 		String propLocation = "config.properties";
 		String certificateLocation = "TT_Server_Push.p12";
 		String token = helper.getPropValues(propLocation, userName.toLowerCase());
+		if(null == token || token.trim().length() == 0 )
+			return;
 		pushdetDetails.setToken(token);
 		pushdetDetails.setCertificatePath(certificateLocation);
 		
