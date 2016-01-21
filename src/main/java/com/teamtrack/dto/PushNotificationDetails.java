@@ -12,6 +12,8 @@ public class PushNotificationDetails {
 	String token;
 	String certificatePath;
 	String alertTitle;
+	String customField = "roomNumber";
+	int customFieldValue;
 	String certificatePassword = "innovation";
 
 	public String getMessage() {
@@ -54,11 +56,28 @@ public class PushNotificationDetails {
 		this.certificatePassword = certificatePassword;
 	}
 
+	public String getCustomField() {
+		return customField;
+	}
+
+	public void setCustomField(String customField) {
+		this.customField = customField;
+	}
+
+	public int getCustomFieldValue() {
+		return customFieldValue;
+	}
+
+	public void setCustomFieldValue(int customFieldValue) {
+		this.customFieldValue = customFieldValue;
+	}
+
 	@Override
 	public String toString() {
 		return "PushNotificationDetails [message=" + message + ", token="
 				+ token + ", certificatePath=" + certificatePath
-				+ ", alertTitle=" + alertTitle + ", certificatePassword="
-				+ certificatePassword + "]";
+				+ ", alertTitle=" + alertTitle + ", customField=" + customField
+				+ ", customFieldValue=" + customFieldValue
+				+ ", certificatePassword=" + certificatePassword + "]";
 	}
 }

@@ -69,7 +69,7 @@ public class CommonHelper {
 		return locations;
 	}
 	
-	public void sendPushNotification(String userName, String alertTitle, String message) throws IOException{
+	public void sendPushNotification(String userName, String alertTitle, String message, int roomNumber) throws IOException{
 		PushNotificationDetails pushdetDetails = new PushNotificationDetails();
 		pushdetDetails.setAlertTitle(alertTitle);
 		pushdetDetails.setMessage(message);
@@ -80,6 +80,7 @@ public class CommonHelper {
 		if(null == token || token.trim().length() == 0 )
 			return;
 		pushdetDetails.setToken(token);
+		pushdetDetails.setCustomFieldValue(roomNumber);
 		pushdetDetails.setCertificatePath(certificateLocation);
 		
 		PushNotifications notif = new PushNotifications();

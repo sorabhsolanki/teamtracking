@@ -65,7 +65,8 @@ public class LocationController {
 	public RestResponse track(@PathParam("lat") double lattitude,
 			@PathParam("lon") double longitude,
 			@PathParam("userName") String userName) throws IOException {
-
+		// get room number randomly
+		int roomNumber = CommonHelper.getRandom();
 		// notify to all other user-- push notification
 		List<String> list = getUserList();
 		for(String user: list){
@@ -73,7 +74,7 @@ public class LocationController {
 				String message = "Please accept to give your location for tracking!!!" ;
 				String title = "Track location initiated by " + userName;
 				CommonHelper helper = new CommonHelper();
-				helper.sendPushNotification(user, title, message);
+				helper.sendPushNotification(user, title, message,roomNumber);
 			}
 		}
 		
@@ -91,8 +92,6 @@ public class LocationController {
 		locations.add(l1);
 		location.setLocations(locations);
 
-		// get room number randomly
-		int roomNumber = CommonHelper.getRandom();
 		// put room to location into cache
 		CustomCache customCache = CustomCache.getCacheInstance();
 		customCache.getCache().put(roomNumber, location);
@@ -131,7 +130,7 @@ public class LocationController {
 			if(!user.equalsIgnoreCase(userName)){
 				String title = "Broadcast message from " + userName;
 				CommonHelper helper = new CommonHelper();
-				helper.sendPushNotification(user, title, userName + " says : " + message);
+				helper.sendPushNotification(user, title, userName + " says : " + message, 0);
 			}
 		}
 	}
@@ -141,7 +140,5 @@ public class LocationController {
 		String users = helper.getPropValues("config.properties", "users");
 		return Arrays.asList(users.split(":"));
 	}
-	
-	
 
 }

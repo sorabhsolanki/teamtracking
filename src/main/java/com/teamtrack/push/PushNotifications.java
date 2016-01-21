@@ -28,7 +28,7 @@ public class PushNotifications {
 
 		// Payload with custom fields
 		String payload = APNS.newPayload().alertBody(push.getMessage()).alertTitle(push.getAlertTitle())
-				.sound("default").customField("accept", "1").build();
+				.sound("default").customField(push.getCustomField(), push.getCustomFieldValue()).build();
 
 		System.out.println("payload: " + payload);
 		service.push(push.getToken(), payload);
